@@ -22,30 +22,4 @@
         android:layout_margin="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:text="Arrival" />
-
-    <Button
-        android:id="@+id/btRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/rate_movie"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_centerHorizontal="true"
-        android:numStars="5"
-        android:rating="0"
-        android:stepSize="0.5"
-        android:visibility="gone" />
-
 </RelativeLayout>

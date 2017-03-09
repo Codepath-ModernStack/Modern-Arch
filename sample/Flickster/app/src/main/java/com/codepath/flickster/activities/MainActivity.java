@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         MovieRestClient.get("movie/now_playing", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray movieJsonResults = null;
+                JSONArray movieJsonResults;
                 try {
                     movieJsonResults = response.getJSONArray("results");
                     ArrayList<Movie> movies = Movie.fromJSONArray(movieJsonResults);

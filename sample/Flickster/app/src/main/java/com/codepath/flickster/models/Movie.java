@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class Movie implements Serializable {
     private static final String BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/";
 
-    String id;
-    String originalTitle;
-    String overview;
-    String backdropPath;
-    String posterPath;
+    private String id;
+    private String originalTitle;
+    private String overview;
+    private String backdropPath;
+    private String posterPath;
 
     public String getId() {
         return id;
