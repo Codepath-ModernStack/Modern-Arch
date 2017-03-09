@@ -31,8 +31,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.rvMovies)
-    RecyclerView rvMovies;
+    @BindView(R.id.rvMovies) RecyclerView rvMovies;
 
     private List<Movie> movieList;
     private MoviesAdapter adapter;

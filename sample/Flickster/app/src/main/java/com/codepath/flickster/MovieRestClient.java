@@ -8,9 +8,9 @@ public class MovieRestClient {
     public static final String API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
     private static final String BASE_URL = "http://api.themoviedb.org/3/";
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private AsyncHttpClient client = new AsyncHttpClient();
 
-    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
