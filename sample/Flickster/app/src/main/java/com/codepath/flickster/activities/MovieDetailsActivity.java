@@ -31,14 +31,10 @@ import cz.msebera.android.httpclient.Header;
 public class MovieDetailsActivity extends Activity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
-    @BindView(R.id.ivBackdrop)
-    ImageView ivBackdrop;
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
-    @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
-    @BindView(R.id.btRating)
-    Button btRating;
+    @BindView(R.id.ivBackdrop) ImageView ivBackdrop;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.ratingBar) RatingBar ratingBar;
+    @BindView(R.id.btRating) Button btRating;
 
     private Movie movie;
     private GuestSession guestSession;
