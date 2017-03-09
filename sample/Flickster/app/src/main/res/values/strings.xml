@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Flickster</string>
+    <string name="rate_movie">Rate Movie</string>
+    <string name="guest_session_prompt">Guest session ID is required. Would you like to proceed?</string>
+    <string name="details_activity_label">Details Activity</string>
+</resources>
