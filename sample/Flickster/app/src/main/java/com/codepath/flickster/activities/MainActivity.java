@@ -31,9 +31,9 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.rvMovies)
-    RecyclerView rvMovies;
+    @BindView(R.id.rvMovies) RecyclerView rvMovies;
 
+    private MovieRestClient movieRestClient;
     private List<Movie> movieList;
     private MoviesAdapter adapter;
 
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        movieRestClient = new MovieRestClient();
         initMovieList();
     }
 
@@ -84,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
     protected void populateMovieList() {
         // https://developers.themoviedb.org/3/movies/get-now-playing
         RequestParams params = new RequestParams();
-        params.put("api_key", MovieRestClient.API_KEY);
-        MovieRestClient.get("movie/now_playing", params, new JsonHttpResponseHandler() {
+        movieRestClient.nowPlaying(params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray movieJsonResults;
