@@ -8,7 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.codepath.flickster.MovieRestClient;
+import com.codepath.flickster.Flickster;
+import com.codepath.flickster.networking.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
 import com.codepath.flickster.models.Movie;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rvMovies) RecyclerView rvMovies;
 
-    private MovieRestClient movieRestClient;
+    @Inject MovieRestClient movieRestClient;
     private List<Movie> movieList;
     private MoviesAdapter adapter;
 
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        movieRestClient = new MovieRestClient();
+        ((Flickster) getApplication()).getAppComponent().inject(this);
         initMovieList();
     }
 

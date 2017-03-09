@@ -1,4 +1,4 @@
-package com.codepath.flickster;
+package com.codepath.flickster.networking;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
