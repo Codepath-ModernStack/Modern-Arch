@@ -1,95 +1,175 @@
 package com.codepath.flickster.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class Movie implements Serializable
+{
+    private static final String BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/";
 
-import java.util.ArrayList;
-
-public class Movie implements Parcelable {
-    private String id;
-    private String originalTitle;
-    private String overview;
-    private String backdropPath;
+    @SerializedName("poster_path")
+    @Expose
     private String posterPath;
+    @SerializedName("adult")
+    @Expose
+    private boolean adult;
+    @SerializedName("overview")
+    @Expose
+    private String overview;
+    @SerializedName("release_date")
+    @Expose
+    private String releaseDate;
+    @SerializedName("genre_ids")
+    @Expose
+    private List<Integer> genreIds = null;
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("original_title")
+    @Expose
+    private String originalTitle;
+    @SerializedName("original_language")
+    @Expose
+    private String originalLanguage;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("backdrop_path")
+    @Expose
+    private String backdropPath;
+    @SerializedName("popularity")
+    @Expose
+    private float popularity;
+    @SerializedName("vote_count")
+    @Expose
+    private int voteCount;
+    @SerializedName("video")
+    @Expose
+    private boolean video;
+    @SerializedName("vote_average")
+    @Expose
+    private float voteAverage;
+    private final static long serialVersionUID = 5330424974341642746L;
 
-    public String getId() {
-        return id;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
     }
 
     public String getOverview() {
         return overview;
     }
 
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getBackdropPath() {
         return backdropPath;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
-    public Movie(JSONObject jsonObject) throws JSONException {
-        this.id = jsonObject.getString("id");
-        this.posterPath = jsonObject.getString("poster_path");
-        this.originalTitle = jsonObject.getString("original_title");
-        this.overview = jsonObject.getString("overview");
-        this.backdropPath = jsonObject.getString("backdrop_path");
+    public float getPopularity() {
+        return popularity;
     }
 
-    public static ArrayList<Movie> fromJSONArray(JSONArray array) {
-        ArrayList<Movie> results = new ArrayList<>();
-        for (int x = 0; x < array.length(); x++) {
-            try {
-                Movie movie = new Movie(array.getJSONObject(x));
-                results.add(movie);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return results;
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getVoteCount() {
+        return voteCount;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.originalTitle);
-        dest.writeString(this.overview);
-        dest.writeString(this.backdropPath);
-        dest.writeString(this.posterPath);
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
-    protected Movie(Parcel in) {
-        this.id = in.readString();
-        this.originalTitle = in.readString();
-        this.overview = in.readString();
-        this.backdropPath = in.readString();
-        this.posterPath = in.readString();
+    public boolean isVideo() {
+        return video;
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
-        }
+    public void setVideo(boolean video) {
+        this.video = video;
+    }
 
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public String getBackdropImagePath() {
+        return String.format("%sw1280/%s", BASE_IMAGE_PATH, backdropPath);
+    }
+
+    public String getPosterImagePath() {
+        return String.format("%sw342/%s", BASE_IMAGE_PATH, posterPath);
+    }
 }

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.codepath.flickster.models.Movie;
+import com.codepath.flickster.models.MovieResponse;
 import com.codepath.flickster.networking.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
@@ -16,17 +18,15 @@ import com.codepath.flickster.databinding.ActivityMainBinding;
 import com.codepath.flickster.models.Movie;
 import com.codepath.flickster.views.DividerItemDecoration;
 import com.codepath.flickster.views.ItemClickSupport;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -83,25 +83,21 @@ public class MainActivity extends AppCompatActivity {
 
     protected void populateMovieList() {
         // https://developers.themoviedb.org/3/movies/get-now-playing
-        RequestParams params = new RequestParams();
-        movieRestClient.nowPlaying(params, new JsonHttpResponseHandler() {
+        movieRestClient.nowPlaying(new Callback<MovieResponse>(){
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray movieJsonResults;
-                try {
-                    movieJsonResults = response.getJSONArray("results");
-                    ArrayList<Movie> movies = Movie.fromJSONArray(movieJsonResults);
-                    if (movies != null) {
-                        updateMovieList(movies);
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                Log.i(TAG, "onResponse");
+                if(response != null) {
+                    MovieResponse movieResponse = response.body();
+                    if(movieResponse != null && movieResponse.getResults() != null) {
+                        updateMovieList(movieResponse.getResults());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG, "Failed to fetch now playing list");
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure");
             }
         });
     }

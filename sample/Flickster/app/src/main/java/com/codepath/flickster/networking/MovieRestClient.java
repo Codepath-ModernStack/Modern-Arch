@@ -1,29 +1,37 @@
 package com.codepath.flickster.networking;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.codepath.flickster.models.MovieResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRestClient {
     private final String API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
     private final String BASE_URL = "http://api.themoviedb.org/3/";
 
-    private AsyncHttpClient client;
+    private MovieApiInterface apiInterface;
 
     public MovieRestClient() {
-        client = new AsyncHttpClient();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit client = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        apiInterface = client.create(MovieApiInterface.class);
     }
 
-    public void nowPlaying(RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        get(getAbsoluteUrl("movie/now_playing"), params, responseHandler);
+    // http://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed
+    public void nowPlaying(Callback<MovieResponse> responseHandler) {
+        Call<MovieResponse> call = apiInterface.getNowPlayingMovies(API_KEY);
+        call.enqueue(responseHandler);
     }
 
-    private String getAbsoluteUrl(String relativeUrl) {
-        return BASE_URL + relativeUrl;
-    }
-
-    private void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        params.put("api_key", API_KEY);
-        client.get(url, params, responseHandler);
-    }
 }
