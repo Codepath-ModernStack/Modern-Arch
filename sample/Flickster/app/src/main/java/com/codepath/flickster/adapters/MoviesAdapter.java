@@ -54,15 +54,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         return movieList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ivPoster)
-        ImageView ivPoster;
-        @BindView(R.id.tvTitle)
-        TextView tvTitle;
-        @BindView(R.id.tvDescription)
-        TextView tvDescription;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ivPoster) ImageView ivPoster;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvDescription) TextView tvDescription;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
