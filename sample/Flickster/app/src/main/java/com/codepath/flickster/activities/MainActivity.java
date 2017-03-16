@@ -15,15 +15,14 @@ import com.codepath.flickster.networking.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
 import com.codepath.flickster.databinding.ActivityMainBinding;
+import com.codepath.flickster.models.Movie;
 import com.codepath.flickster.views.DividerItemDecoration;
 import com.codepath.flickster.views.ItemClickSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
