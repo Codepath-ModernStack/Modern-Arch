@@ -1,6 +1,7 @@
 package com.codepath.flickster.activities;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import com.codepath.flickster.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
+import com.codepath.flickster.databinding.ActivityMainBinding;
 import com.codepath.flickster.models.Movie;
 import com.codepath.flickster.views.DividerItemDecoration;
 import com.codepath.flickster.views.ItemClickSupport;
@@ -24,24 +26,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    @BindView(R.id.rvMovies) RecyclerView rvMovies;
+    private ActivityMainBinding mainBinding;
 
     private MovieRestClient movieRestClient;
     private List<Movie> movieList;
     private MoviesAdapter adapter;
-
+    private RecyclerView rvMovies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        rvMovies = mainBinding.rvMovies;
         movieRestClient = new MovieRestClient();
         initMovieList();
     }
