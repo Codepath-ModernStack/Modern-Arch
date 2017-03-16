@@ -1,22 +1,20 @@
 package com.codepath.flickster.adapters;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.flickster.R;
+import com.codepath.flickster.databinding.ItemMovieBinding;
 import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     public static final String TAG = MoviesAdapter.class.getSimpleName();
@@ -31,9 +29,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     @Override
     public MoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-
+        ItemMovieBinding movieBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.item_movie,parent,false);
+        ViewHolder viewHolder = new ViewHolder(movieBinding);
         return viewHolder;
     }
 
@@ -55,13 +52,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ivPoster) ImageView ivPoster;
-        @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvDescription) TextView tvDescription;
+        ImageView ivPoster;
+        TextView tvTitle;
+        TextView tvDescription;
 
-        ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        ViewHolder(ItemMovieBinding movieBinding) {
+            super(movieBinding.getRoot());
+            ivPoster = movieBinding.ivPoster;
+            tvTitle = movieBinding.tvTitle;
+            tvDescription = movieBinding.tvDescription;
         }
     }
 }
