@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="movie" type="com.codepath.flickster.models.Movie"/>
+    </data>
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
 
         <ImageView
+            app:imageUrl = '@{movie.getPosterPath()}'
             android:id="@+id/ivPoster"
             android:layout_width="100dp"
             android:layout_height="180dp"
@@ -17,6 +22,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            android:text='@{movie.getOriginalTitle()}'
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ivPoster"
@@ -27,6 +33,7 @@
 
         <TextView
             android:id="@+id/tvDescription"
+            android:text='@{movie.getOverview()}'
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvTitle"
