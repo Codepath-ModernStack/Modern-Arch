@@ -10,7 +10,7 @@
         android:padding="10dp">
 
         <ImageView
-            app:imageUrl = '@{movie.getPosterPath()}'
+            app:imageUrl = '@{movie.getPosterImagePath()}'
             android:id="@+id/ivPoster"
             android:layout_width="100dp"
             android:layout_height="180dp"

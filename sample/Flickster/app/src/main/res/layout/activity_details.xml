@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            app:imageUrl = '@{movie.getBackdropPath()}'
+            app:imageUrl = '@{movie.getBackdropImagePath()}'
             android:id="@+id/ivBackdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
