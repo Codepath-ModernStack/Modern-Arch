@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.codepath.flickster.MovieRestClient;
+import com.codepath.flickster.networking.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
 import com.codepath.flickster.models.Movie;

@@ -38,7 +38,7 @@ public class MovieDetailsActivity extends Activity {
     }
 
     private void initView() {
-        Picasso.with(this).load(movie.getBackdropPath()).into(ivBackdrop);
+        Picasso.with(this).load(movie.getBackdropImagePath()).into(ivBackdrop);
         tvTitle.setText(movie.getOriginalTitle());
     }
 }

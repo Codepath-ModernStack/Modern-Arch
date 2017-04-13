@@ -28,11 +28,11 @@ public class Movie implements Serializable {
         return overview;
     }
 
-    public String getBackdropPath() {
+    public String getBackdropImagePath() {
         return String.format("%sw1280/%s", BASE_IMAGE_PATH, backdropPath);
     }
 
-    public String getPosterPath() {
+    public String getPosterImagePath() {
         return String.format("%sw342/%s", BASE_IMAGE_PATH, posterPath);
     }
 
