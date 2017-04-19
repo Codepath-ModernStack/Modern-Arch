@@ -1,5 +1,7 @@
 package com.codepath.flickster.networking;
 
+import android.app.Application;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -8,9 +10,14 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    @Provides
-    @Singleton
-    MovieRestClient providesMovieRestClient() {
-        return new MovieRestClient();
+    Application mApplication;
+
+    public AppModule(Application application) {
+        mApplication = application;
+    }
+
+    @Provides @Singleton
+    Application providesApplication() {
+        return mApplication;
     }
 }
