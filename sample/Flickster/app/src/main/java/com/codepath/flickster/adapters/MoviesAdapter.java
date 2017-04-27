@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.codepath.flickster.R;
 import com.codepath.flickster.databinding.ItemMovieBinding;
 import com.codepath.flickster.models.Movie;
-import com.codepath.flickster.utils.MovieImagePathUtils;
 
 import java.util.List;
 
