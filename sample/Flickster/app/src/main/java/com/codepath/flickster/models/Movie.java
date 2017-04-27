@@ -1,13 +1,15 @@
+
 package com.codepath.flickster.models;
 
-import java.io.Serializable;
 import java.util.List;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Movie implements Serializable
-{
-    private static final String BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/";
+public class Movie implements Parcelable {
 
     @SerializedName("poster_path")
     @Expose
@@ -51,7 +53,36 @@ public class Movie implements Serializable
     @SerializedName("vote_average")
     @Expose
     private float voteAverage;
-    private final static long serialVersionUID = 5330424974341642746L;
+    public final static Parcelable.Creator<Movie> CREATOR = new Creator<Movie>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public Movie createFromParcel(Parcel in) {
+            Movie instance = new Movie();
+            instance.posterPath = ((String) in.readValue((String.class.getClassLoader())));
+            instance.adult = ((boolean) in.readValue((boolean.class.getClassLoader())));
+            instance.overview = ((String) in.readValue((String.class.getClassLoader())));
+            instance.releaseDate = ((String) in.readValue((String.class.getClassLoader())));
+            in.readList(instance.genreIds, (java.lang.Integer.class.getClassLoader()));
+            instance.id = ((int) in.readValue((int.class.getClassLoader())));
+            instance.originalTitle = ((String) in.readValue((String.class.getClassLoader())));
+            instance.originalLanguage = ((String) in.readValue((String.class.getClassLoader())));
+            instance.title = ((String) in.readValue((String.class.getClassLoader())));
+            instance.backdropPath = ((String) in.readValue((String.class.getClassLoader())));
+            instance.popularity = ((float) in.readValue((float.class.getClassLoader())));
+            instance.voteCount = ((int) in.readValue((int.class.getClassLoader())));
+            instance.video = ((boolean) in.readValue((boolean.class.getClassLoader())));
+            instance.voteAverage = ((float) in.readValue((float.class.getClassLoader())));
+            return instance;
+        }
+
+        public Movie[] newArray(int size) {
+            return (new Movie[size]);
+        }
+
+    };
 
     public String getPosterPath() {
         return posterPath;
@@ -165,11 +196,25 @@ public class Movie implements Serializable
         this.voteAverage = voteAverage;
     }
 
-    public String getBackdropImagePath() {
-        return String.format("%sw1280/%s", BASE_IMAGE_PATH, backdropPath);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(posterPath);
+        dest.writeValue(adult);
+        dest.writeValue(overview);
+        dest.writeValue(releaseDate);
+        dest.writeList(genreIds);
+        dest.writeValue(id);
+        dest.writeValue(originalTitle);
+        dest.writeValue(originalLanguage);
+        dest.writeValue(title);
+        dest.writeValue(backdropPath);
+        dest.writeValue(popularity);
+        dest.writeValue(voteCount);
+        dest.writeValue(video);
+        dest.writeValue(voteAverage);
     }
 
-    public String getPosterImagePath() {
-        return String.format("%sw342/%s", BASE_IMAGE_PATH, posterPath);
+    public int describeContents() {
+        return 0;
     }
+
 }

@@ -15,15 +15,12 @@ import com.codepath.flickster.networking.MovieRestClient;
 import com.codepath.flickster.R;
 import com.codepath.flickster.adapters.MoviesAdapter;
 import com.codepath.flickster.databinding.ActivityMainBinding;
-import com.codepath.flickster.models.Movie;
 import com.codepath.flickster.views.DividerItemDecoration;
 import com.codepath.flickster.views.ItemClickSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
