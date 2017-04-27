@@ -1,6 +1,7 @@
 
 package com.codepath.flickster.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Parcel;
@@ -16,7 +17,7 @@ public class MovieResponse implements Parcelable {
     private int page;
     @SerializedName("results")
     @Expose
-    private List<Movie> results = null;
+    private List<Movie> results = new ArrayList<Movie>();
     @SerializedName("dates")
     @Expose
     private Dates dates;
@@ -60,8 +61,8 @@ public class MovieResponse implements Parcelable {
         return results;
     }
 
-    public void setResults(List<Movie> movies) {
-        this.results = movies;
+    public void setResults(List<Movie> results) {
+        this.results = results;
     }
 
     public Dates getDates() {

@@ -1,6 +1,7 @@
 
 package com.codepath.flickster.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Parcel;
@@ -25,7 +26,7 @@ public class Movie implements Parcelable {
     private String releaseDate;
     @SerializedName("genre_ids")
     @Expose
-    private List<Integer> genreIds = null;
+    private List<Integer> genreIds = new ArrayList<Integer>();
     @SerializedName("id")
     @Expose
     private int id;
