@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.codepath.flickster.R;
 import com.codepath.flickster.models.Movie;
+import com.codepath.flickster.utils.MovieImagePathUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -29,7 +30,7 @@ public class MovieDetailsActivity extends Activity {
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
-        movie = (Movie) getIntent().getSerializableExtra("movie");
+        movie = getIntent().getParcelableExtra("movie");
         if (movie != null) {
             initView();
         } else {
@@ -38,7 +39,7 @@ public class MovieDetailsActivity extends Activity {
     }
 
     private void initView() {
-        Picasso.with(this).load(movie.getBackdropPath()).into(ivBackdrop);
+        Picasso.with(this).load(MovieImagePathUtils.getBackdropImagePath(movie)).into(ivBackdrop);
         tvTitle.setText(movie.getOriginalTitle());
     }
 }

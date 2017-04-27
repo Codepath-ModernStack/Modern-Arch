@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.codepath.flickster.R;
 import com.codepath.flickster.models.Movie;
+import com.codepath.flickster.utils.MovieImagePathUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public void onBindViewHolder(MoviesAdapter.ViewHolder holder, int position) {
         Movie movie = movieList.get(position);
         if (movie != null) {
-            Picasso.with(context).load(movie.getPosterPath()).into(holder.ivPoster);
+            Picasso.with(context).load(MovieImagePathUtils.getPosterImagePath(movie)).into(holder.ivPoster);
             holder.tvTitle.setText(movie.getOriginalTitle());
             holder.tvDescription.setText(movie.getOverview());
         } else {
