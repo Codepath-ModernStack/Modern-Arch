@@ -1,15 +1,15 @@
 package com.codepath.flickster.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie implements Serializable {
-    private static final String BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/";
-
+public class Movie implements Parcelable {
     private String id;
     private String originalTitle;
     private String overview;
@@ -28,12 +28,12 @@ public class Movie implements Serializable {
         return overview;
     }
 
-    public String getBackdropImagePath() {
-        return String.format("%sw1280/%s", BASE_IMAGE_PATH, backdropPath);
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
-    public String getPosterImagePath() {
-        return String.format("%sw342/%s", BASE_IMAGE_PATH, posterPath);
+    public String getPosterPath() {
+        return posterPath;
     }
 
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -57,4 +57,39 @@ public class Movie implements Serializable {
 
         return results;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.originalTitle);
+        dest.writeString(this.overview);
+        dest.writeString(this.backdropPath);
+        dest.writeString(this.posterPath);
+    }
+
+    protected Movie(Parcel in) {
+        this.id = in.readString();
+        this.originalTitle = in.readString();
+        this.overview = in.readString();
+        this.backdropPath = in.readString();
+        this.posterPath = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
