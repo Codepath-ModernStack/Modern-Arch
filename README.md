@@ -35,7 +35,8 @@ We have 5 branches at your disposal:
 Go over the code and make sure you understand all moving parts. The app has 2 activities (`MainActivity` & `MovieDetailsActivity`) and a simple `MovieRestClient` that uses `AsyncHttp`. You should be familiar with [Butter knife](http://jakewharton.github.io/butterknife/) and [Picasso](http://square.github.io/picasso/).
 
 When loading, your app should look like this:
-![Main Activity |200](http://i.imgur.com/qI8sciV.png =250x)
+
+![Main Activity](http://i.imgur.com/tQ9XcJt.png?1)
 
 # 2. Data Binding Challenge
 **Note:** If you run into trouble, you can separately branch `feature/1-databinding` for reference.
