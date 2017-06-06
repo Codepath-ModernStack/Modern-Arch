@@ -511,13 +511,13 @@ An MVC architecture can lead to huge activties/fragments, which make collaborati
 
 The MVP pattern has the project split into three parts.
 
-**Model:** Data layer
-**View:** The UI layer - Activites, Fragments, or android.view.View. The `View` is responsible for reacting to user's input and displaying data from the Presenter. 
+**Model:** Data layer  
+**View:** The UI layer - Activites, Fragments, or android.view.View. The `View` is responsible for reacting to user's input and displaying data from the Presenter.  
 **Presenter:** The logic layer. Fetches and manipulates Model objects, passes the results to Views, responds to actions performed on Views.
 
 The `Preseneter` and `View` talk to each other via an Interface. 
 
-To refactor our Flickster app into the MVP pattern, we first need to look at `MainActivity.java` and see what part of the code should be in the logic layer. Figuring out what code goes into the Presenter may be open to interpretation, but a general rule of thumb:
+To refactor our Flickster app into the MVP pattern, we first need to look at `MainActivity.java` and see what part of the code should be in the logic layer. Figuring out what code goes into the Presenter may be open to interpretation, but here's a general rule of thumb:
 1. networking calls 
 2. object manipulation 
 3. code that contains `if` 
@@ -558,7 +558,7 @@ public class MainPresenter {
                 if(response != null) {
                     MovieResponse movieResponse = (MovieResponse)response.body();
                     if(movieResponse != null && movieResponse.getResults() != null) {
-                        MainPresenter.this.mainScreen.updateMovieList(movieResponse.getResults());
+                        updateMovieList(movieResponse.getResults());
                     }
                 }
 
@@ -571,7 +571,41 @@ public class MainPresenter {
     }
 }
 ```
-- **5.3** Delete the populate movie method, add a reference to the presenter, and call the presenter's populate movie method in `MainActivity`
+- **5.3** Create a `MainScreen` interface to connect the presenter to the activity. Put the `updateMovieList` method inside it. 
+
+```
+public interface MainScreen {
+    void updateMovieList(List<Movie> movies);
+
+}
+```
+Call this method in the presenter in the appropriate place 
+
+```
+public void populateMovieList() {
+
+        // https://developers.themoviedb.org/3/movies/get-now-playing
+        mClient.nowPlaying(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                Log.i(TAG, "onResponse");
+                if(response != null) {
+                    MovieResponse movieResponse = response.body();
+                    if(movieResponse != null && movieResponse.getResults() != null) {
+                        mScreen.updateMovieList(movieResponse.getResults());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure");
+            }
+        });
+}
+```
+
+- **5.4** Delete the populate movie method, add a reference to the presenter, implement the screen, and call the presenter's populate movie method in `MainActivity`
 ```
 public class MainActivity extends AppCompatActivity implements MainScreen {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -631,43 +665,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     }
 ...
 ```
-- **5.4** Create a `MainScreen` interface to connect the presenter to the activity. Put the `updateMovieList` method inside it. 
-
-```
-public interface MainScreen {
-    void updateMovieList(List<Movie> movies);
-
-}
-```
-Call this method in the presenter in the appropriate place 
-
-```
-public void populateMovieList() {
-
-        // https://developers.themoviedb.org/3/movies/get-now-playing
-        mClient.nowPlaying(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                Log.i(TAG, "onResponse");
-                if(response != null) {
-                    MovieResponse movieResponse = response.body();
-                    if(movieResponse != null && movieResponse.getResults() != null) {
-                        mScreen.updateMovieList(movieResponse.getResults());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.e(TAG, "onFailure");
-            }
-        });
-}
-```
 - **5.5** Great play the app!   
 
 ## Food for Thought
-This current implmentation of MVP does not look into how Dagger can be used to inject the client into the `Presenter` directly and how to inject the `Presenter` into the `MainActivity`.
+This current implmentation of MVP does not use Dagger to inject the client directly into the `Presenter` and to inject the `Presenter` into the `MainActivity`.
 
 Look into how you can utilize Dagger in the MVP pattern. For some guidance, look at [this](https://adityaladwa.wordpress.com/2016/05/11/dagger-2-and-mvp-architecture/). 
 
